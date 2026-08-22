@@ -132,3 +132,40 @@ function isPrime(num){
     return true;
 }
 
+// 5. Merge two sorted arrays into a single sorted array
+/**
+ * @param {number[]} arr1
+ * @param {number[]} arr2
+ * @return {number[]}
+ */
+function mergeSortedArrays(arr1, arr2){
+   const result = [];
+    let i = 0; // Pointer for arr1
+    let j = 0; // Pointer for arr2
+    
+    // Compare elements from both arrays and add the smaller one
+    while (i < arr1.length && j < arr2.length) {
+        if (arr1[i] <= arr2[j]) {
+            result.push(arr1[i]);
+            i++;
+        } else {
+            result.push(arr2[j]);
+            j++;
+        }
+    }
+    
+    // Add remaining elements from arr1 (if any)
+    while (i < arr1.length) {
+        result.push(arr1[i]);
+        i++;
+    }
+    
+    // Add remaining elements from arr2 (if any)
+    while (j < arr2.length) {
+        result.push(arr2[j]);
+        j++;
+    }
+    
+    return result;
+}
+console.log(mergeSortedArrays([1, 3, 5], [2, 4, 6])); // Output: [1, 2, 3, 4, 5, 6]
