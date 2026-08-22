@@ -1,4 +1,4 @@
-// Leap Year Checker and Fibonacci Generator
+//1. Leap Year Checker and Fibonacci Generator
 
 /**
  * @param {number} year
@@ -15,7 +15,7 @@ function isLeapYear(year){
 }
 
  
-// Fibonacci Sequence Generator
+//2. Fibonacci Sequence Generator
 /**
  * @param {number} n
  * @return {number[]}
@@ -41,7 +41,7 @@ function generateFibonacci(n){
 }
 
 
-// Find GCD of two numbers using Euclid's algorithm
+//3. Find GCD of two numbers using Euclid's algorithm
 /* @param {number} a
  * @param {number} b
  * @return {number}
@@ -68,3 +68,37 @@ function findGCD(a, b){
     
     return a;
 }
+
+// 4. Find LCM of two numbers
+/**
+ * @param {number} a
+ * @param {number} b
+ * @return {number}
+ */
+function findLCM(a, b){
+    // LCM(a, b) = |a * b| / GCD(a, b)
+    
+    // Handle edge case: LCM of 0 and any number is 0
+    if (a === 0 || b === 0) {
+        return 0;
+    }
+    
+    // Helper function to find GCD using Euclid's algorithm
+    function findGCD(x, y) {
+        x = Math.abs(x);
+        y = Math.abs(y);
+        while (y !== 0) {
+            const temp = y;
+            y = x % y;
+            x = temp;
+        }
+        return x;
+    }
+    
+    const gcd = findGCD(a, b);
+    
+    // Use division before multiplication to avoid potential overflow
+    return Math.abs(a / gcd * b);
+}
+
+
