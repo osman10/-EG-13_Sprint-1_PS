@@ -102,3 +102,33 @@ function findLCM(a, b){
 }
 
 
+// Check if a number is prime
+/**
+ * @param {number} num
+ * @return {boolean}
+ */
+function isPrime(num){
+    // Handle edge cases
+    if (num <= 1) {
+        return false;
+    }
+    if (num <= 3) {
+        return true;
+    }
+    
+    // Check if divisible by 2 or 3
+    if (num % 2 === 0 || num % 3 === 0) {
+        return false;
+    }
+    
+    // Check divisors up to sqrt(num)
+    // All primes > 3 can be written as 6k ± 1
+    for (let i = 5; i * i <= num; i += 6) {
+        if (num % i === 0 || num % (i + 2) === 0) {
+            return false;
+        }
+    }
+    
+    return true;
+}
+
