@@ -15,7 +15,7 @@ function isLeapYear(year){
 }
 
  
-//2. Fibonacci Sequence Generator
+//02. Generate Fibonacci Sequence Up to N Terms
 /**
  * @param {number} n
  * @return {number[]}
@@ -41,7 +41,7 @@ function generateFibonacci(n){
 }
 
 
-//3. Find GCD of two numbers using Euclid's algorithm
+//03. Calculate the Greatest Common Divisor (GCD)
 /* @param {number} a
  * @param {number} b
  * @return {number}
@@ -69,7 +69,7 @@ function findGCD(a, b){
     return a;
 }
 
-// 4. Find LCM of two numbers
+// 04. Calculate the Least Common Multiple (LCM)
 /**
  * @param {number} a
  * @param {number} b
@@ -102,7 +102,7 @@ function findLCM(a, b){
 }
 
 
-// Check if a number is prime
+//05. Check if a Number is Prime
 /**
  * @param {number} num
  * @return {boolean}
@@ -132,7 +132,7 @@ function isPrime(num){
     return true;
 }
 
-// 5. Merge two sorted arrays into a single sorted array
+// 06. Merge Two Sorted Arrays into One Sorted Array
 /**
  * @param {number[]} arr1
  * @param {number[]} arr2
@@ -169,7 +169,7 @@ function mergeSortedArrays(arr1, arr2){
     return result;
 }
 
-
+// 07. Find the Median of an Unsorted Array
 /**
  * @param {number[]} nums
  * @return {number}
@@ -192,4 +192,104 @@ function findMedian(nums){
     // If array length is even, return average of two middle elements
     return (sorted[mid - 1] + sorted[mid]) / 2;
 }
+
+//08. Find the Second Largest Number in an Array
+/**
+ * @param {number[]} nums
+ * @return {number|null}
+ */
+function findSecondLargest(nums){
+    // Handle edge cases: empty array or array with only one element
+    if (nums.length < 2) {
+        return null;
+    }
+    
+    let largest = -Infinity;
+    let secondLargest = -Infinity;
+    
+    for (let i = 0; i < nums.length; i++) {
+        const current = nums[i];
+        
+        if (current > largest) {
+            // New largest found, shift previous largest to second largest
+            secondLargest = largest;
+            largest = current;
+        } else if (current > secondLargest && current < largest) {
+            // Found a new second largest (distinct from largest)
+            secondLargest = current;
+        }
+    }
+    
+    // If secondLargest is still -Infinity, there was no distinct second largest
+    return secondLargest === -Infinity ? null : secondLargest;
+}
+
+
+// 09. Find Most Frequent Element (Mode) in an Array9. Find Mode of an array of numbers
+/**
+ * @param {Array} arr
+ * @return {*}
+ */
+function findMode(arr){
+   // Handle empty array
+    if (arr.length === 0) {
+        return null;
+    }
+    
+    // Count frequency of each element
+    const frequency = {};
+    let maxCount = 0;
+    let mode = null;
+    
+    for (let i = 0; i < arr.length; i++) {
+        const element = arr[i];
+        frequency[element] = (frequency[element] || 0) + 1;
+        
+        // Update mode if current element appears more frequently
+        if (frequency[element] > maxCount) {
+            maxCount = frequency[element];
+            mode = element;
+        }
+    }
+    
+    return mode;
+}
+
+// 10. Natural Sorting of Strings with Embedded Numbers
+/**
+ * @param {string[]} arr
+ * @return {string[]}
+ */
+function naturalSort(arr){
+    return arr.slice().sort((a, b) => {
+        // Split strings into segments of text and numbers
+        const segmentsA = a.match(/\d+|\D+/g) || [a];
+        const segmentsB = b.match(/\d+|\D+/g) || [b];
+        
+        // Compare each segment
+        for (let i = 0; i < Math.min(segmentsA.length, segmentsB.length); i++) {
+            const segA = segmentsA[i];
+            const segB = segmentsB[i];
+            
+            // If both segments are numbers, compare numerically
+            if (/^\d+$/.test(segA) && /^\d+$/.test(segB)) {
+                const numA = parseInt(segA, 10);
+                const numB = parseInt(segB, 10);
+                if (numA !== numB) {
+                    return numA - numB;
+                }
+            } else {
+                // Otherwise, compare as strings (case-insensitive)
+                const comparison = segA.localeCompare(segB, undefined, { numeric: false, sensitivity: 'base' });
+                if (comparison !== 0) {
+                    return comparison;
+                }
+            }
+        }
+        
+        // If all segments match, the shorter string comes first
+        return segmentsA.length - segmentsB.length;
+    });
+}
+
 
